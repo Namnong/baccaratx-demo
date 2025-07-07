@@ -3,27 +3,52 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BaccaratX AI</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>BaccaratX AI - Web Demo</title>
+  <style>
+    body { background-color: #111; color: white; font-family: sans-serif; text-align: center; padding-top: 50px; }
+    input, button { padding: 10px; margin: 10px; }
+    .btn { background: #444; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    .btn:hover { background: #666; }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>BaccaratX AI - Web Demo</h1>
-    <p>Hệ thống dự đoán Baccarat tích hợp AI GPT.</p>
-    <div id="game-area"></div>
-    <button onclick="resetGame()">🔁 Reset</button>
-    <button onclick="undo()">↩️ Undo</button>
+  <h1>BaccaratX AI - Web Demo</h1>
+  <p>Hệ thống dự đoán Baccarat tích hợp AI GPT.</p>
 
-    <hr style="margin: 20px 0" />
+  <button class="btn" onclick="reset()">🔄 Reset</button>
+  <button class="btn" onclick="undo()">↩️ Undo</button>
 
-    <h2>🤖 Hỏi GPT về cầu Baccarat</h2>
-    <textarea id="gpt-input" rows="3" cols="40" placeholder="Ví dụ: Cầu B P B P là dạng gì?"></textarea><br/>
-    <button onclick="queryGPT()">📡 Gửi GPT</button>
-    <div id="gpt-response" style="margin-top: 1em; white-space: pre-wrap;"></div>
-  </div>
+  <hr>
 
-  <script src="utils.js"></script>
-  <script src="script.js"></script>
+  <h2>🤖 Hỏi GPT về cầu Baccarat</h2>
+  <input id="question" placeholder="Ví dụ: BPBP" />
+  <button class="btn" onclick="askGPT()">📤 Gửi GPT</button>
+
+  <p id="response" style="margin-top: 20px; font-style: italic;"></p>
+
+  <script>
+    async function askGPT() {
+      const question = document.getElementById("question").value;
+      const responseBox = document.getElementById("response");
+      responseBox.innerText = "⏳ Đang gửi tới AI...";
+
+      const res = await fetch("http://localhost:11434/api/gpt", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question })
+      });
+
+      const data = await res.json();
+      responseBox.innerText = data.reply || "❌ Không có phản hồi từ AI.";
+    }
+
+    function reset() {
+      document.getElementById("question").value = "";
+      document.getElementById("response").innerText = "";
+    }
+    function undo() {
+      document.getElementById("question").value = document.getElementById("question").value.slice(0, -1);
+    }
+  </script>
 </body>
 </html>
