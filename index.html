@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BaccaratX AI</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>BaccaratX AI - Web Demo</h1>
+    <p>Hệ thống dự đoán Baccarat tích hợp AI GPT.</p>
+    <div id="game-area"></div>
+    <button onclick="resetGame()">🔁 Reset</button>
+    <button onclick="undo()">↩️ Undo</button>
+
+    <hr style="margin: 20px 0" />
+
+    <h2>🤖 Hỏi GPT về cầu Baccarat</h2>
+    <textarea id="gpt-input" rows="3" cols="40" placeholder="Ví dụ: Cầu B P B P là dạng gì?"></textarea><br/>
+    <button onclick="queryGPT()">📡 Gửi GPT</button>
+    <div id="gpt-response" style="margin-top: 1em; white-space: pre-wrap;"></div>
+  </div>
+
+  <script src="utils.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
