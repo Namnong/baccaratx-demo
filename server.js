@@ -21,7 +21,7 @@ app.post('/api/gpt', async (req, res) => {
       ]
     }, {
       headers: {
-        'Authorization': `Bearer YOUR_API_KEY_HERE`,  // ⚠️ Nhớ thay bằng API Key
+        'Authorization': `Bearer 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`,  // ⚠️ Nhớ thay bằng API Key
         'Content-Type': 'application/json'
       }
     });
